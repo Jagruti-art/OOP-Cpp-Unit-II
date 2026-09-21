@@ -4,21 +4,6 @@
 #include <vector>
 using namespace std;
 
-// ============================================================================
-// Real-Time Application 2: Digital Payment Gateway
-// Problem Scenario:
-// A payment gateway supports credit-card, UPI, net-banking, and wallet payments.
-// All payment modes implement a common processing interface.
-//
-// OOP Concepts Used:
-// - Abstract class
-// - Hierarchical inheritance
-// - Pure virtual function
-// - Virtual destructor
-// - Runtime polymorphism
-// ============================================================================
-
-// Abstract base class representing a Payment Method
 class PaymentMethod {
 protected:
     string transactionId;
@@ -28,14 +13,10 @@ public:
     PaymentMethod(string tid, double amt)
         : transactionId(tid), amount(amt) {}
 
-    // Pure virtual function
     virtual bool processPayment() const = 0;
-
-    // Virtual destructor for safe polymorphic deletion
     virtual ~PaymentMethod() = default;
 };
 
-// Derived class for Credit Card Payment
 class CreditCardPayment : public PaymentMethod {
 private:
     string maskedCardNumber;
@@ -52,7 +33,6 @@ public:
     }
 };
 
-// Derived class for UPI Payment
 class UPIPayment : public PaymentMethod {
 private:
     string upiId;
@@ -69,7 +49,6 @@ public:
     }
 };
 
-// Derived class for Net Banking Payment
 class NetBankingPayment : public PaymentMethod {
 private:
     string bankName;
@@ -87,7 +66,6 @@ public:
 };
 
 int main() {
-    // Storing polymorphic objects via smart pointers in vector
     vector<unique_ptr<PaymentMethod>> payments;
     payments.push_back(make_unique<CreditCardPayment>("TXN001", 2500, "XXXX-XXXX-1234"));
     payments.push_back(make_unique<UPIPayment>("TXN002", 1200, "student@upi"));
